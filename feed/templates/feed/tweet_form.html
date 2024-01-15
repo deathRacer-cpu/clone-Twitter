@@ -1,0 +1,44 @@
+{% extends 'feed/base.html'%}
+
+{%block content%}
+<div class="container">
+
+	<form method="POST"> 
+		{%csrf_token%}
+
+		<fieldset class="form-group">
+
+			<legend class="border-bottom mb-4">Type Here</legend>
+			{{form.as_p}}
+
+		</fieldset>
+
+		<div class="form-group">
+			<button class="btn btn-outline-info" type="submit">Tweet</button>
+
+		</div>
+		<div>
+
+<!-- tweet.html -->
+
+{% for tweet in tweets %}
+    <!-- Display tweet content -->
+    <p>{{ tweet.content }}</p>
+
+    <!-- Like and Dislike buttons -->
+    <form method="post" action="{% url 'like_tweet' tweet.id %}">
+        {% csrf_token %}
+        <button type="submit">Like</button>
+    </form>
+    <form method="post" action="{% url 'dislike_tweet' tweet.id %}">
+        {% csrf_token %}
+        <button type="submit">Dislike</button>
+    </form>
+{% endfor %}
+
+
+
+
+
+
+			{%endblock content%}
